@@ -34,20 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return code;
     }
 
-    function updateBarcode(code) {
-        const barcodeText = document.querySelector("#barcode text");
-        barcodeText.textContent = code;
-        JsBarcode(barcode, code, {
-            format: "EAN13",
-            displayValue: true
-        });
-    }
-
     if (generateBtn) {
         generateBtn.addEventListener('click', () => {
             const newCode = generateUniqueCode();
             codeDisplay.textContent = newCode;
-            updateBarcode(newCode);
+            JsBarcode(barcode, newCode, {
+                format: "EAN13",
+                displayValue: true
+            });
         });
     }
 
@@ -90,4 +84,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
