@@ -61,6 +61,9 @@
         }
 
         #barcode {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 300px;
             display: none; /* Nascondi l'immagine del codice a barre all'inizio */
         }
 
@@ -76,15 +79,6 @@
 
         footer a:hover {
             text-decoration: underline;
-        }
-
-        img#barcode {
-            margin: 20px 0;
-            width: 100%;
-            max-width: 300px;
-            display: block; /* Assicura che l'immagine sia visualizzata */
-            margin-left: auto; /* Centra l'immagine orizzontalmente */
-            margin-right: auto; /* Centra l'immagine orizzontalmente */
         }
     </style>
 </head>
@@ -107,7 +101,6 @@
             const generateBtn = document.getElementById('generateBtn');
             const codeDisplay = document.getElementById('codeDisplay');
             const barcode = document.getElementById('barcode');
-            const barcodeContainer = document.getElementById('barcodeContainer');
             let generatedCodes = JSON.parse(localStorage.getItem('generatedCodes')) || [];
 
             function generateCheckDigit(upc) {
