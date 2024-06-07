@@ -129,6 +129,15 @@
                 return code;
             }
 
+            // Funzione per aggiornare il codice a barre
+            function updateBarcode(code) {
+                JsBarcode(barcode, code, {
+                    format: "EAN13",
+                    displayValue: true
+                });
+                barcode.style.display = 'block';
+            }
+
             if (generateBtn) {
                 generateBtn.addEventListener('click', () => {
                     const newCode = generateUniqueCode();
@@ -142,10 +151,8 @@
                         barcode.style.display = 'block';
                     };
 
-                    JsBarcode(barcode, newCode, {
-                        format: "EAN13",
-                        displayValue: true
-                    });
+                    // Aggiorna il codice a barre
+                    updateBarcode(newCode);
                 });
             }
         });
