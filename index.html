@@ -3,21 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codici Generati</title>
+    <title>Generatore di Codici Unici</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background-image.jpg'); /* Assicurati che l'immagine sia nella stessa directory */
+            background-size: cover; /* Rende l'immagine di sfondo coprente */
+            background-position: center; /* Centra l'immagine di sfondo */
+            background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(30, 30, 30, 0.8); /* Colore di sfondo semitrasparente per la leggibilità del testo */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        #generateBtn, #viewCodesBtn, #backBtn, #resetBtn, #searchBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #34D7DA;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #generateBtn:hover, #viewCodesBtn:hover, #backBtn:hover, #resetBtn:hover, #searchBtn:hover {
+            background-color: #2bb2b5;
+            color: #ffffff;
+        }
+
+        #codeDisplay {
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #barcodeContainer {
+            margin: 20px 0;
+        }
+
+        #barcode {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 300px;
+            display: none; /* Nascondi l'immagine del codice a barre all'inizio */
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #34D7DA;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Codici Generati</h1>
-        <input type="text" id="searchBox" placeholder="Cerca Codice">
-        <button id="searchBtn">Cerca</button>
-        <ul id="codeList"></ul>
-        <button id="backBtn" onclick="window.location.href='index.html'">Torna Indietro</button>
-        <button id="resetBtn">Resetta Codici</button>
+        <h1>Generatore di Codici Unici</h1>
+        <button id="generateBtn">Genera Codice</button>
+        <div id="codeDisplay"></div>
+        <div id="barcodeContainer">
+            <img id="barcode" />
+        </div>
+        <button id="viewCodesBtn" onclick="window.location.href='codes.html'">Vedi Codici Generati</button>
         <footer>
             Creato da <a href="https://www.facebook.com/profile.php?id=61559982552012" target="_blank">AlfaVisuals</a>
         </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
