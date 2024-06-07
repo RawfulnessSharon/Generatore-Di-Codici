@@ -6,18 +6,56 @@
     <title>Generatore di Codici Unici</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode"></script>
-</head>
-<body>
-    <div class="container">
-        <h1>Generatore di Codici Unici</h1>
-        <button id="generateBtn">Genera Codice</button>
-        <div id="codeDisplay"></div>
-        <img id="barcode" />
-        <button id="viewCodesBtn" onclick="window.location.href='codes.html'">Vedi Codici Generati</button>
-        <footer>
-            Creato da <a href="https://www.facebook.com/profile.php?id=61559982552012" target="_blank">AlfaVisuals</a>
-        </footer>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background-image.jpg'); /* Assicurati che l'immagine sia nella stessa directory */
+            background-size: cover; /* Rende l'immagine di sfondo coprente */
+            background-position: center; /* Centra l'immagine di sfondo */
+            background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(30, 30, 30, 0.8); /* Colore di sfondo semitrasparente per la leggibilità del testo */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        #generateBtn, #viewCodesBtn, #backBtn, #resetBtn, #searchBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #34D7DA;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #generateBtn:hover, #viewCodesBtn:hover, #backBtn:hover, #resetBtn:hover, #searchBtn:hover {
+            background-color: #2bb2b5;
+            color: #ffffff;
+        }
+
+        #codeDisplay {
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #codeList {
+            list-style-type: none;
+      
