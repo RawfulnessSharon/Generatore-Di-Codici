@@ -56,29 +56,12 @@
             font-weight: bold;
         }
 
-        #codeList {
-            list-style-type: none;
-            padding: 0;
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #333333;
-            margin-top: 10px;
+        #barcodeContainer {
+            margin: 20px 0;
         }
 
-        #codeList li {
-            background-color: #333333;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        #searchBox {
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 10px;
-            background-color: #333333;
-            color: #ffffff;
-            border: 1px solid #555555;
+        #barcode {
+            display: none; /* Nascondi l'immagine del codice a barre all'inizio */
         }
 
         footer {
@@ -110,7 +93,9 @@
         <h1>Generatore di Codici Unici</h1>
         <button id="generateBtn">Genera Codice</button>
         <div id="codeDisplay"></div>
-        <img id="barcode" />
+        <div id="barcodeContainer">
+            <img id="barcode" />
+        </div>
         <button id="viewCodesBtn" onclick="window.location.href='codes.html'">Vedi Codici Generati</button>
         <footer>
             Creato da <a href="https://www.facebook.com/profile.php?id=61559982552012" target="_blank">AlfaVisuals</a>
@@ -122,6 +107,7 @@
             const generateBtn = document.getElementById('generateBtn');
             const codeDisplay = document.getElementById('codeDisplay');
             const barcode = document.getElementById('barcode');
+            const barcodeContainer = document.getElementById('barcodeContainer');
             let generatedCodes = JSON.parse(localStorage.getItem('generatedCodes')) || [];
 
             function generateCheckDigit(upc) {
@@ -154,6 +140,15 @@
                 generateBtn.addEventListener('click', () => {
                     const newCode = generateUniqueCode();
                     codeDisplay.textContent = newCode;
+
+                    // Nascondi l'immagine del codice a barre prima di generare il nuovo codice
+                    barcode.style.display = 'none';
+
+                    // Genera il codice a barre dopo che l'immagine è stata caricata
+                    barcode.onload = () => {
+                        barcode.style.display = 'block';
+                    };
+
                     JsBarcode(barcode, newCode, {
                         format: "EAN13",
                         displayValue: true
