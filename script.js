@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generateBtn');
     const codeDisplay = document.getElementById('codeDisplay');
-    const barcodeCanvas = document.getElementById('barcodeCanvas');
-    const ctx = barcodeCanvas.getContext('2d');
+    const barcode = document.getElementById('barcode');
+    const codeList = document.getElementById('codeList');
+    const searchBox = document.getElementById('searchBox');
+    const searchBtn = document.getElementById('searchBtn');
+    const resetBtn = document.getElementById('resetBtn');
     let generatedCodes = JSON.parse(localStorage.getItem('generatedCodes')) || [];
 
     function generateCheckDigit(upc) {
@@ -31,19 +34,53 @@ document.addEventListener('DOMContentLoaded', () => {
         return code;
     }
 
-    function updateBarcode(code) {
-        ctx.clearRect(0, 0, barcodeCanvas.width, barcodeCanvas.height);
-        JsBarcode(ctx, code, {
-            format: "EAN13",
-            displayValue: true
-        });
-    }
-
     if (generateBtn) {
         generateBtn.addEventListener('click', () => {
             const newCode = generateUniqueCode();
             codeDisplay.textContent = newCode;
-            updateBarcode(newCode);
+            JsBarcode(barcode, newCode, {
+                format: "EAN13",
+                displayValue: true
+            });
         });
+    }
+
+    if (codeList) {
+        function displayCodes(codes) {
+            codeList.innerHTML = '';
+            codes.forEach(code => {
+                const listItem = document.createElement('li');
+                listItem.textContent = code;
+                codeList.appendChild(listItem);
+            });
+        }
+
+        displayCodes(generatedCodes);
+
+        if (searchBtn) {
+            searchBtn.addEventListener('click', () => {
+                const query = searchBox.value.trim();
+                if (query) {
+                    const filteredCodes = generatedCodes.filter(code => code.includes(query));
+                    displayCodes(filteredCodes);
+                    if (filteredCodes.length > 0) {
+                        searchBox.style.backgroundColor = 'green';
+                    } else {
+                        searchBox.style.backgroundColor = 'red';
+                    }
+                } else {
+                    displayCodes(generatedCodes);
+                    searchBox.style.backgroundColor = '';
+                }
+            });
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                localStorage.removeItem('generatedCodes');
+                generatedCodes = [];
+                displayCodes(generatedCodes);
+            });
+        }
     }
 });
