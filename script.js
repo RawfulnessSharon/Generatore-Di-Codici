@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             format: "ean13",
             displayValue: true
         });
+        barcode.style.display = 'block';
     }
 
     if (generateBtn) {
@@ -45,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Visualizza il codice numerico
             codeDisplay.textContent = newCode;
+
+            // Nascondi l'immagine del codice a barre prima di generare il nuovo codice
+            barcode.style.display = 'none';
 
             // Aggiorna il codice a barre
             updateBarcode(newCode);
