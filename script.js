@@ -43,10 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.addEventListener('click', () => {
             const newCode = generateUniqueCode();
             codeDisplay.textContent = newCode;
-            JsBarcode(barcode, newCode, {
-                format: "EAN13",
-                displayValue: true
-            });
+            updateBarcode(newCode);
         });
     }
 
@@ -57,11 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 format: "EAN13",
                 displayValue: true
             });
-            const url = canvas.toDataURL("image/png");
+            const url = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
             const link = document.createElement('a');
             link.href = url;
             link.download = 'barcode.png';
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
         });
     }
 });
