@@ -1,23 +1,25 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: url('background-image.jpg'); /* Assicurati che l'immagine sia nella stessa directory */
-    background-size: cover; /* Rende l'immagine di sfondo coprente */
-    background-position: center; /* Centra l'immagine di sfondo */
-    background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+    background-color: #121212;
     color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-image: url('path/to/your/background-image.jpg'); /* Assicurati di aggiornare il percorso */
+    background-size: cover;
+    background-position: center;
 }
 
 .container {
-    background-color: rgba(30, 30, 30, 0.8); /* Colore di sfondo semitrasparente per la leggibilità del testo */
+    background-color: #1e1e1e;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
+    width: 100%;
+    max-width: 600px;
 }
 
 h1 {
@@ -28,7 +30,7 @@ h1 {
 #generateBtn, #viewCodesBtn, #backBtn, #resetBtn, #searchBtn {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #34D7DA;
+    background-color: #bb86fc;
     color: #000000;
     border: none;
     border-radius: 5px;
@@ -37,7 +39,7 @@ h1 {
 }
 
 #generateBtn:hover, #viewCodesBtn:hover, #backBtn:hover, #resetBtn:hover, #searchBtn:hover {
-    background-color: #2bb2b5;
+    background-color: #3700b3;
     color: #ffffff;
 }
 
@@ -78,7 +80,7 @@ footer {
 }
 
 footer a {
-    color: #34D7DA;
+    color: #bb86fc;
     text-decoration: none;
 }
 
@@ -91,3 +93,4 @@ img#barcode {
     width: 100%;
     max-width: 300px;
 }
+
