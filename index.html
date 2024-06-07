@@ -99,6 +99,9 @@
             margin: 20px 0;
             width: 100%;
             max-width: 300px;
+            display: block; /* Assicura che l'immagine sia visualizzata */
+            margin-left: auto; /* Centra l'immagine orizzontalmente */
+            margin-right: auto; /* Centra l'immagine orizzontalmente */
         }
     </style>
 </head>
@@ -141,4 +144,23 @@
                     let upc = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
                     let checkDigit = generateCheckDigit(upc);
                     code = upc + checkDigit;
-                } while (generatedCodes.includes(code
+                } while (generatedCodes.includes(code));
+                generatedCodes.push(code);
+                localStorage.setItem('generatedCodes', JSON.stringify(generatedCodes));
+                return code;
+            }
+
+            if (generateBtn) {
+                generateBtn.addEventListener('click', () => {
+                    const newCode = generateUniqueCode();
+                    codeDisplay.textContent = newCode;
+                    JsBarcode(barcode, newCode, {
+                        format: "EAN13",
+                        displayValue: true
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
