@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateBarcode(code) {
+        ctx.clearRect(0, 0, barcodeCanvas.width, barcodeCanvas.height);
         JsBarcode(ctx, code, {
             format: "EAN13",
             displayValue: true
@@ -42,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.addEventListener('click', () => {
             const newCode = generateUniqueCode();
             codeDisplay.textContent = newCode;
-            ctx.clearRect(0, 0, barcodeCanvas.width, barcodeCanvas.height);
             updateBarcode(newCode);
         });
     }
