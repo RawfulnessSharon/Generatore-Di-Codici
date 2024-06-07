@@ -2,10 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generateBtn');
     const codeDisplay = document.getElementById('codeDisplay');
     const barcode = document.getElementById('barcode');
-    const codeList = document.getElementById('codeList');
-    const searchBox = document.getElementById('searchBox');
-    const searchBtn = document.getElementById('searchBtn');
-    const resetBtn = document.getElementById('resetBtn');
+    const barcodeContainer = document.getElementById('barcodeContainer');
+    const downloadBtn = document.getElementById('downloadBtn');
     let generatedCodes = JSON.parse(localStorage.getItem('generatedCodes')) || [];
 
     function generateCheckDigit(upc) {
@@ -42,45 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 format: "EAN13",
                 displayValue: true
             });
+            barcodeContainer.style.display = 'block';
+            downloadBtn.disabled = false;
         });
     }
 
-    if (codeList) {
-        function displayCodes(codes) {
-            codeList.innerHTML = '';
-            codes.forEach(code => {
-                const listItem = document.createElement('li');
-                listItem.textContent = code;
-                codeList.appendChild(listItem);
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            JsBarcode(canvas, codeDisplay.textContent, {
+                format: 'EAN13',
+                displayValue: true
             });
-        }
-
-        displayCodes(generatedCodes);
-
-        if (searchBtn) {
-            searchBtn.addEventListener('click', () => {
-                const query = searchBox.value.trim();
-                if (query) {
-                    const filteredCodes = generatedCodes.filter(code => code.includes(query));
-                    displayCodes(filteredCodes);
-                    if (filteredCodes.length > 0) {
-                        searchBox.style.backgroundColor = 'green';
-                    } else {
-                        searchBox.style.backgroundColor = 'red';
-                    }
-                } else {
-                    displayCodes(generatedCodes);
-                    searchBox.style.backgroundColor = '';
-                }
-            });
-        }
-
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                localStorage.removeItem('generatedCodes');
-                generatedCodes = [];
-                displayCodes(generatedCodes);
-            });
-        }
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'barcode.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
     }
 });
