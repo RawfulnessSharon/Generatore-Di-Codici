@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generateBtn');
     const codeDisplay = document.getElementById('codeDisplay');
     const barcode = document.getElementById('barcode');
-    const barcodeContainer = document.getElementById('barcodeContainer');
     const downloadBtn = document.getElementById('downloadBtn');
     let generatedCodes = JSON.parse(localStorage.getItem('generatedCodes')) || [];
 
@@ -32,6 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return code;
     }
 
+    function updateBarcode(code) {
+        JsBarcode(barcode, code, {
+            format: "EAN13",
+            displayValue: true
+        });
+        barcode.style.display = 'block';
+    }
+
     if (generateBtn) {
         generateBtn.addEventListener('click', () => {
             const newCode = generateUniqueCode();
@@ -40,8 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 format: "EAN13",
                 displayValue: true
             });
-            barcodeContainer.style.display = 'block';
-            downloadBtn.disabled = false;
         });
     }
 
@@ -49,16 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
         downloadBtn.addEventListener('click', () => {
             const canvas = document.createElement('canvas');
             JsBarcode(canvas, codeDisplay.textContent, {
-                format: 'EAN13',
+                format: "EAN13",
                 displayValue: true
             });
-            const url = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+            const url = canvas.toDataURL("image/png");
             const link = document.createElement('a');
             link.href = url;
             link.download = 'barcode.png';
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
         });
     }
 });
