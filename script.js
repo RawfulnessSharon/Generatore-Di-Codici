@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generateBtn');
     const codeDisplay = document.getElementById('codeDisplay');
-    const barcode = document.getElementById('barcode');
-    const downloadBtn = document.getElementById('downloadBtn');
+    const barcodeCanvas = document.getElementById('barcodeCanvas');
+    const ctx = barcodeCanvas.getContext('2d');
     let generatedCodes = JSON.parse(localStorage.getItem('generatedCodes')) || [];
 
     function generateCheckDigit(upc) {
@@ -32,35 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateBarcode(code) {
-        JsBarcode(barcode, code, {
+        JsBarcode(ctx, code, {
             format: "EAN13",
             displayValue: true
         });
-        barcode.style.display = 'block';
     }
 
     if (generateBtn) {
         generateBtn.addEventListener('click', () => {
             const newCode = generateUniqueCode();
             codeDisplay.textContent = newCode;
+            ctx.clearRect(0, 0, barcodeCanvas.width, barcodeCanvas.height);
             updateBarcode(newCode);
-        });
-    }
-
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', () => {
-            const canvas = document.createElement('canvas');
-            JsBarcode(canvas, codeDisplay.textContent, {
-                format: "EAN13",
-                displayValue: true
-            });
-            const url = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'barcode.png';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
         });
     }
 });
