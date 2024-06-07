@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 format: 'EAN13',
                 displayValue: true
             });
-            const url = canvas.toDataURL('image/png');
+            const url = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
             const link = document.createElement('a');
             link.href = url;
             link.download = 'barcode.png';
